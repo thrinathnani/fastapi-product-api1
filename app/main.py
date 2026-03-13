@@ -46,3 +46,13 @@ def store_summary():
 def search_products(keyword: str):
     result = [p for p in products if keyword.lower() in p["name"].lower()]
     return {"keyword": keyword, "items": result}
+@app.get("/products/{product_id}/price")
+def get_product_price(product_id: int):
+    for product in products:
+        if product["id"] == product_id:
+            return {
+                "name": product["name"],
+                "price": product["price"]
+            }
+
+    return {"error": "Product not found"}
